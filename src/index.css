@@ -6,6 +6,9 @@ body {
 ol, ul {
   padding-left: 30px;
 }
+.winner-status{
+  font-size: 30px;
+}
 
 .board-row:after {
   clear: both;
@@ -21,15 +24,15 @@ ol, ul {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 90px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 150px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 150px;
 }
 
 .square:focus {
@@ -47,4 +50,5 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+  margin-right: 30px;
 }
