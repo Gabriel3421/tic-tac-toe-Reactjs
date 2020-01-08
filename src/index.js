@@ -5,7 +5,7 @@ import './index.css';
 
 function Square(props){
   return(
-    <button className = "square" onClick = {props.onClick}>
+    <button className = "square" onClick = {props.onClick} >
       {props.value}
     </button>
     );
@@ -46,36 +46,62 @@ function Square(props){
   class Game extends React.Component {
     constructor(props){
       super(props);
+        let squares = new Array(9);
+        let pos = Math.floor(Math.random()*9);
+        squares[pos] = 'X'
       this.state = {
         history: [
           {
-          squares: Array(9).fill(null),
+          squares: squares,
           }
         ],
         stepNumber: 0,
-        xIsNext:true,
+        xIsNext:false,
       };
     }
+   
     handleClick(i){
-      const history = this.state.history.slice(0, this.state.stepNumber + 1);
-      const current = history[history.length - 1];
-      const squares = current.squares.slice();
-      if(calculateWinner(squares) || squares[i]){
-        return;
+      let player = this.state.xIsNext ? 'X' : 'O';
+      var history = this.state.history.slice(0, this.state.stepNumber + 1);
+        var current = history[history.length - 1];
+        var squares = current.squares.slice();//valor atual do tabuleiro
+        if(calculateWinner(squares) || squares[i]){
+          return;
+        }
+
+      if (player === 'O'){
+        
+        squares[i] = 'O'; // o quadrado na pos i recebe x ou o
+        
       }
-      squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({
-        history: history.concat([{
-          squares: squares,  
-        }]),
-        stepNumber: history.length,
-        xIsNext: !this.state.xIsNext,
-      });
+      let x = new Array(9);
+      for(let i=0; i<9; i++) {
+        x[i] = i; 
+      }
+
+      x.sort(function(a,b){ return (Math.round(Math.random())-0.5); });
+       
+      for(let i = 0; i < 9; i++){
+        if (squares[x[i]] == null){
+          squares[x[i]] = 'X';
+          break;
+        }
+      }
+        this.setState({
+          history: history.concat([{
+            squares: squares,  
+          }]),
+          stepNumber: history.length,
+          xIsNext: this.state.xIsNext,
+        },
+        () => console.log(this.state));
+          
     }
+      
     jumpTo(step) {
       this.setState({
         stepNumber: step,
-        xIsNext: (step % 2) === 0,
+        xIsNext: false,
       });
     }
     render() {
