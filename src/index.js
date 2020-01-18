@@ -27,24 +27,26 @@ function Square(props){
         row[b] = this.renderSquare(i);
         b++;
       }
-      return(row);
+      return(
+      <div key = {i} className="board-row">
+        {row}
+      </div>);
+    }
+    renderBoard(){
+      let i = 0, aux =0;
+      let board = new Array(3);
+      while (i < 9){
+        board[aux] = this.renderRow(i);
+        aux++;
+        i += 3;
+      }
+      return(board);
     } 
   
     render() {  
       return (
         <div>
-          <div className="board-row">
-            {this.renderRow(0)}
-            
-          </div>
-          <div className="board-row">
-            {this.renderRow(3)}
-            
-          </div>
-          <div className="board-row">
-            {this.renderRow(6)}
-           
-          </div>
+          {this.renderBoard()}
         </div>
       );
     }
